@@ -26,5 +26,34 @@ fork该项目，命名为 你的名字.github.io，例如 ra2web.github.io
 
 [![一键部署到Vercel](https://vercel.com/button)](https://vercel.com/import/project?template=https://github.com/ra2web/ra2web.github.io)
 
+### Cloudflare
+
+本项目是纯静态站点（无需构建步骤），可以直接部署到 Cloudflare Pages 或 Cloudflare Workers。
+
+#### 方式一：Cloudflare Pages（推荐，图形界面操作）
+
+1. 将本仓库推送到 GitHub
+2. 打开 Cloudflare Dashboard → **Workers & Pages** → **Create application** → **Pages**
+3. 连接你的 GitHub 仓库并选择仓库
+4. 构建设置：
+   - Framework preset：`None`
+   - Build command：留空
+   - Build output directory：`./`（项目根目录）
+5. 点击 **Save and Deploy**
+
+#### 方式二：Cloudflare Workers（静态资源，命令行部署）
+
+仓库已内置 `wrangler.toml`，一条命令即可完成部署：
+
+```bash
+npx wrangler deploy
+```
+
+说明：
+
+- `wrangler.toml` 把项目根目录作为静态资源目录（`assets.directory = "./"`），游戏运行时会从站点根目录加载 `config.ini`、`servers.ini`、`mods.ini`
+- `.assetsignore` 用于排除无需上线的文件（如 `.git`、cPanel 残留页面等）
+- `_headers` 用于设置缓存响应头，Cloudflare Pages 与 Workers 均支持
+
 
 
